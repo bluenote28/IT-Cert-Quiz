@@ -15,26 +15,26 @@ class GameManager:
         self.levels.append(level)
 
     def start_game(self):
-        self.levels[self.current_level].setup_level()
-        self.next_level_button.grid(column=3, row=self.levels[self.current_level].number_of_answers + 1)
+        self.levels[self.current_level].display_question()
+        self.next_level_button.grid(column=3, row=len(self.levels[self.current_level].answers) + 1)
 
     def start_next_level(self):
         if self.current_level >= self.level_count:
             self.next_level_button.destroy()
             self.end_screen.pack()
         else:
-            self.levels[self.current_level].setup_level()
-            self.next_level_button.grid(column=3, row=self.levels[self.current_level].number_of_answers + 1)
+            self.levels[self.current_level].display_question()
+            self.next_level_button.grid(column=3, row=len(self.levels[self.current_level].answers) + 1)
 
     def destroy_level(self):
 
         message = tkinter.messagebox
         
-        if self.levels[self.current_level].level_over:
+        if self.levels[self.current_level].question_answered:
 
             count = 0
 
-            while count < self.levels[self.current_level].number_of_answers:
+            while count < len(self.levels[self.current_level].answers):
                 self.levels[self.current_level].answer_check_labels[count].destroy()
                 count += 1
             self.levels[self.current_level].answer_check_labels.clear()
