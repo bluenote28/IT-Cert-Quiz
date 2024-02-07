@@ -1,14 +1,17 @@
-from tkinter import Button, Label, Entry
+import tkinter
+import tkinter.messagebox
 
 class Question:
 
     def __init__(self, question_text, window):
         self.question_text = question_text
         self.window = window
-        self.answer_check_button = Button(self.window, text="Check Answers", command=self.check_answers)
-        self.win_label = Label(self.window, text="Good Job. You got them all")
-        self.level_title_label = Label(self.window, text=self.question_text)
+        self.answer_check_button = tkinter.Button(self.window, text="Submit", command=self.check_answers)
+        self.next_level_button = tkinter.Button(self.window, text="Next Question", command=self.destroy_question)
+        self.win_label = tkinter.Label(self.window, text="Good Job. You got them all")
+        self.level_title_label = tkinter.Label(self.window, text=self.question_text)
         self.question_answered = False
+        self.question_displayed = False
 
     def display_win_label(self):
 
@@ -16,7 +19,49 @@ class Question:
         self.question_answered = True
 
 class MultipleChoice(Question):
-    pass
+
+    def __init__(self, window, question_text, answers, correct_answer):
+        super(MultipleChoice, self).__init__(question_text, window)
+        self.answers = answers
+        self.correct_answer = correct_answer
+        self.answer_buttons = []
+        self.choice = tkinter.StringVar()
+        self.display_answer_check = tkinter.Label(self.window, text="")
+
+
+    def display_question(self):
+        self.level_title_label.pack()
+
+        for count, value in enumerate(self.answers):
+            self.answer_buttons.append(tkinter.Radiobutton(self.window, text=value, variable=self.choice, value=self.answers[count]))
+            self.answer_buttons[count].pack()
+
+        self.answer_check_button.pack()
+        self.next_level_button.pack()
+        self.question_displayed = True
+
+    def check_answers(self):
+        
+        if self.choice.get() == self.answers[self.correct_answer]:
+            self.display_answer_check.config(text="Correct")
+            self.question_answered = True
+        else:
+            self.display_answer_check.config(text="Incorrect")
+
+        self.display_answer_check.pack()
+
+    def destroy_question(self):
+
+        self.level_title_label.destroy()
+        self.answer_check_button.destroy()
+        self.next_level_button.destroy()
+        self.display_answer_check.destroy()
+
+        for button in self.answer_buttons:
+            button.destroy()
+
+        self.question_displayed = False
+       
 
 class OrderedFillInTheBlank(Question):
 
@@ -37,15 +82,17 @@ class OrderedFillInTheBlank(Question):
         count = 1
 
         while count <= len(self.answers):
-            self.labels.append(Label(self.window, text=f"{self.layer_level_text} {count} of {self.topic_label_text}"))
+            self.labels.append(tkinter.Label(self.window, text=f"{self.layer_level_text} {count} of {self.topic_label_text}"))
             self.labels[count-1].grid(column=1, row=count)
 
-            self.entries.append(Entry(self.window))
+            self.entries.append(tkinter.Entry(self.window))
             self.entries[count-1].grid(column=2, row=count)
 
             count += 1
 
-            self.answer_check_button.grid(column=2, row=len(self.entries) + 1)
+            self.answer_check_button.grid(column=2, row=len(self.answers) + 1)
+            self.next_level_button.grid(column=3, row=len(self.answers) + 1)
+        self.question_displayed = True
 
     def check_answers(self):
 
@@ -59,14 +106,14 @@ class OrderedFillInTheBlank(Question):
 
         ##checks answers and builds check answers list
         en = 0
-        while en < len(self.entries):
+        while en < len(self.answers):
             
             if self.entries[en].get() == self.answers[en] or self.entries[en].get().lower() == self.answers[en].lower():
 
-                self.answer_check_labels.insert(en, Label(self.window, text="Correct"))
+                self.answer_check_labels.insert(en, tkinter.Label(self.window, text="Correct"))
                 en += 1
             else:
-                self.answer_check_labels.insert(en, Label(self.window, text="Incorrect"))
+                self.answer_check_labels.insert(en, tkinter.Label(self.window, text="Incorrect"))
                 en += 1
 
         ##outputs correct or incorrect labels
@@ -82,7 +129,37 @@ class OrderedFillInTheBlank(Question):
                 correct_answers += 1
 
         if correct_answers == len(self.answers):
+            self.question_answered = True
             self.display_win_label()
+
+    def destroy_question(self):
+        message = tkinter.messagebox
+        
+        if self.question_answered:
+
+            count = 0
+
+            while count < len(self.answers):
+                self.answer_check_labels[count].destroy()
+                count += 1
+            self.answer_check_labels.clear()
+
+            for label in self.labels:
+                label.destroy()
+
+            for entry in self.entries:
+                entry.destroy()
+
+            self.answer_check_button.destroy()
+            self.win_label.destroy()
+            self.level_title_label.destroy()
+            self.next_level_button.destroy()
+
+        else:
+            message.showerror(title="Warning", message="You have not answered all questions correctly.", parent=self.window)
+        
+        self.question_displayed = False
+        
 
 class UnorderedFillInTheBlank(Question):
 
