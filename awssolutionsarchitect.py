@@ -6,10 +6,17 @@ quiz_window.title("Name IT terms")
 quiz_window.minsize(width=500, height=300)
 current_question_index = 0
 
-osi_question = OrderedFillInTheBlank(quiz_window, "Name all of the layers of the OSI Model", ["Physical", "Data Link", "Network", "Transportation", "Session", "Presentation", "Application"], "Layer", "the OSI model")
-encapsulation = OrderedFillInTheBlank(quiz_window, "Name the PDU at each level", ["Bit", "Frame", "Packet", "Segment", "Data", "Data", "Data"], "the OSI Model", "Layer")
-##tcp_udp = GenerateLevel(2, "The two main layer four protocols from a to z", "2", "Layer Four protocol", ["TCP", "UDP"], guess_game_window)
-##man_question = MultipleChoice(guess_game_window, "Which network type covers a city wide area?", ['LAN', 'WAN', 'PAN', 'MAN'], 3)
+ondemand = MultipleChoice(quiz_window, "Which EC2 instance type lets you pay for what you use with no commitment?", ["spot", "on demand", "reserved","dedicated"], 1)
+elastic = MultipleChoice(quiz_window, "Which type of IP address is a fixed public IP address for your EC2 instance?", ["public", "elastic", "private", "dynamic"] 1)
+placement = MultipleChoice(quiz_window, "What is used to defined an EC2 placement strategy?" ['iam group', 'vpc subnet', 'ec2 clusters', 'placement group'], 3)
+cluster_group = MultipleChoice(quiz_window, "Which placement strategy clusters instances into low latency group in a single AZ?", ['clusters','high availability','spread','partition'], 0)
+spread_group = MultipleChoice(quiz_window, "Which placement strategy spreads instances across underlying hardware?", ['clusters','high availability','spread','partition'], 2)
+partition_group = MultipleChoice(quiz_window, "Which placement strategy spreads many instances across different racks?", ['clusters','high availability','spread','partition'], 3)
+partition_group_lat = MultipleChoice(quiz_window, "Which placement strategy has the lowest latencdy?", ['clusters','high availability','spread','partition'], 0)
+spread_max = MultipleChoice(quiz_window, "What is the maximum number of instances possible in a spread placement group?", ['6','7','8','9'], 1)
+
+
+
 
 questions = [osi_question, encapsulation]
 
