@@ -160,6 +160,46 @@ class OrderedFillInTheBlank(Question):
         
         self.question_displayed = False
         
+class TrueOrFalse(Question):
+    def __init__(self, window,question_text, answer):
+        super().__init__(question_text, window)
+        self.answer = answer
+        self.answers = ['TRUE', 'FALSE']
+        self.answer_buttons = []
+        self.choice = tkinter.StringVar()
+        self.display_answer_check = tkinter.Label(self.window, text="")
+
+    def display_question(self):
+        self.level_title_label.pack()
+
+        for count, value in enumerate(self.answers):
+            self.answer_buttons.append(tkinter.Radiobutton(self.window, text=value, variable=self.choice, value=self.answers[count]))
+            self.answer_buttons[count].pack()
+
+        self.answer_check_button.pack()
+        self.next_level_button.pack()
+        self.question_displayed = True
+    def check_answers(self):
+        
+        if self.choice.get() == self.answers[self.correct_answer]:
+            self.display_answer_check.config(text="Correct")
+            self.question_answered = True
+        else:
+            self.display_answer_check.config(text="Incorrect")
+
+        self.display_answer_check.pack()
+
+    def destroy_question(self):
+
+        self.level_title_label.destroy()
+        self.answer_check_button.destroy()
+        self.next_level_button.destroy()
+        self.display_answer_check.destroy()
+
+        for button in self.answer_buttons:
+            button.destroy()
+
+        self.question_displayed = False        
 
 class UnorderedFillInTheBlank(Question):
 
