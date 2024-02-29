@@ -48,7 +48,15 @@ MultipleChoice(quiz_window, "Which load balancer is used to route traffice throu
 TrueOrFalse(quiz_window, "The gateway load balancer uses the GENEVE protocol on port 6081", "TRUE"),
 MultipleChoice(quiz_window, "Which load balancer is uses a load balancer and a tranparent network gateway", ['Network load balancer','application load balancer','gateway load balancer','elastic load balancer'],2),
 MultipleChoice(quiz_window, "What is it called when a client is always redirected to the same instance behind a load balancer?", ['elastic sessions','Sticky sessions','Cached sessions','ssh sessions'], 1),
-MultipleChoice(quiz_window, "What allows traffic to be evenly distributed to host across AZs?", ['network load balancer','Sticky sessions','application load balancing','cross region load balancing'], 3)
+MultipleChoice(quiz_window, "What allows traffic to be evenly distributed to host across AZs?", ['network load balancer','Sticky sessions','application load balancing','cross region load balancing'], 3),
+MultipleChoice(quiz_window, "What allows you to load multiple SSL certificates on a server?", ['SSL','SNI','SNP','TLS'], 1),
+MultipleChoice(quiz_window, 'SNI requires the client to indicate the hostname of target server in the handshake?', "TRUE"),
+TrueOrFalse(quiz_window, 'RDS has an auto scaling feature so you do not run out of sspace', "TRUE"),
+MultipleChoice(quiz_window, 'What is the purpose of RDS read replicas?', ['Increase read efficiency','security','storage increase','security'], 0),
+TrueOrFalse(quiz_window, "RDS read replicas cannot cross AZs", "FALSE"),
+TrueOrFalse(quiz_window, "It is free to send data to a read replica in another AZ", "TRUE"),
+TrueOrFalse(quiz_window, "You can set up a RDS Multi AZ read replica for disaster recovery.", "TRUE"),
+TrueOrFalse(quiz_window, "There will be down time to convert a RDS read replica from single to multi-AZ", "FALSE"),
 
 
 ]

@@ -8,7 +8,7 @@ current_question_index = 0
 
 osi_question = OrderedFillInTheBlank(quiz_window, "Name all of the layers of the OSI Model", ["Physical", "Data Link", "Network", "Transportation", "Session", "Presentation", "Application"], "Layer", "the OSI model")
 encapsulation = OrderedFillInTheBlank(quiz_window, "Name the PDU at each level", ["Bit", "Frame", "Packet", "Segment", "Data", "Data", "Data"], "the OSI Model", "Layer")
-man_question = MultipleChoice(quiz_window, "Which network type covers a city wide area?", ['LAN', 'WAN', 'PAN', 'MAN'], 3)
+man_question = MultipleChoice (quiz_window, "Which network type covers a city wide area?", ['LAN', 'WAN', 'PAN', 'MAN'], 3)
 
 questions = [man_question, osi_question, encapsulation]
 
