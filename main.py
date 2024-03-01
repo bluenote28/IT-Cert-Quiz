@@ -1,16 +1,15 @@
 import tkinter
 from question import OrderedFillInTheBlank, MultipleChoice
+from awssolutionsarchitect import AWSSolutionsArchitect
 
 quiz_window = tkinter.Tk()
 quiz_window.title("Name IT terms")
 quiz_window.minsize(width=500, height=300)
 current_question_index = 0
 
-osi_question = OrderedFillInTheBlank(quiz_window, "Name all of the layers of the OSI Model", ["Physical", "Data Link", "Network", "Transportation", "Session", "Presentation", "Application"], "Layer", "the OSI model")
-encapsulation = OrderedFillInTheBlank(quiz_window, "Name the PDU at each level", ["Bit", "Frame", "Packet", "Segment", "Data", "Data", "Data"], "the OSI Model", "Layer")
-man_question = MultipleChoice (quiz_window, "Which network type covers a city wide area?", ['LAN', 'WAN', 'PAN', 'MAN'], 3)
 
-questions = [man_question, osi_question, encapsulation]
+aws_solutions_architect = AWSSolutionsArchitect(quiz_window)
+questions = aws_solutions_architect.questions
 
 welcome_label = tkinter.Label(quiz_window, text="Welcome to the IT terms quiz")
 welcome_label.pack()
